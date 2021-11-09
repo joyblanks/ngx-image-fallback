@@ -1,6 +1,6 @@
 {
   "name": "ngx-image-fallback",
-  "version": "0.0.0",
+  "version": "0.0.0-semantically-released",
   "scripts": {
     "ng": "ng",
     "watch": "ng build --watch --configuration development",
@@ -35,6 +35,8 @@
     "@angular/compiler-cli": "~12.2.0",
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^14.1.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@types/jasmine": "~3.8.0",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.28.2",
@@ -84,6 +86,29 @@
     }
   },
   "release": {
-    "pkgRoot": "dist/ngx-image-fallback"
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      [
+        "@semantic-release/npm",
+        {
+          "pkgRoot": "dist/ngx-image-fallback"
+        }
+      ],
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md"
+          ]
+        }
+      ]
+    ]
   }
 }

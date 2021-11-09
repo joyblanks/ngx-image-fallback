@@ -7,5 +7,19 @@
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "description": "Image fallback directive for img tag and background images on Angular",
+  "homepage": "https://github.com/joyblanks/ngx-image-fallback",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joyblanks/ngx-image-fallback.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joyblanks/ngx-image-fallback/issues"
+  },
+  "author": {
+    "name": "Joy Biswas",
+    "email": "joy.blanks@hotmail.com",
+    "url": "https://github.com/joyblanks"
   }
 }
