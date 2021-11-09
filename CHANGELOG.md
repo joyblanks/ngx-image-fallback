@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/joyblanks/ngx-image-fallback/compare/v1.0.0...v1.0.1) (2021-11-09)
+
+
+### Bug Fixes
+
+* **directive:** mismatched directive and input attributes ([f198ccf](https://github.com/joyblanks/ngx-image-fallback/commit/f198ccf9c359355afb01640d58ba5d6c9520507b))
+
 # 1.0.0 (2021-11-09)
 
 
