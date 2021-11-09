@@ -7,7 +7,7 @@
     "commit": "git-cz",
     "build": "ng build ngx-image-fallback --configuration production",
     "lint": "ng lint ngx-image-fallback",
-    "test": "ng test ngx-image-fallback",
+    "test": "ng test ngx-image-fallback  --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "travis-deploy-once": "travis-deploy-once --pro",
     "semantic-release": "semantic-release"
   },
