@@ -49,10 +49,10 @@ interface LoaderStyles {
 export class NgxImageFallbackDirective implements OnInit {
 
   @Input()
-  imageFallback: string = DEFAULT_FALLBACK;
+  ngxImageFallback: string = DEFAULT_FALLBACK;
 
   @Input()
-  imageFallbackStyles: LoaderStyles = { loaderClass: LOADER_CSS_CLASSNAME, loaderColor: LOADER_COLOR };
+  ngxImageFallbackStyles: LoaderStyles = { loaderClass: LOADER_CSS_CLASSNAME, loaderColor: LOADER_COLOR };
 
   private isBackgroundImage = true;
 
@@ -66,7 +66,7 @@ export class NgxImageFallbackDirective implements OnInit {
    */
   ngOnInit(): void {
     // inject native loader class class if not specified by user
-    if (!this.imageFallbackStyles?.loaderClass || this.imageFallbackStyles.loaderClass === LOADER_CSS_CLASSNAME) {
+    if (!this.ngxImageFallbackStyles?.loaderClass || this.ngxImageFallbackStyles.loaderClass === LOADER_CSS_CLASSNAME) {
       const id = LOADER_CSS_CLASSNAME;
       if (!document.querySelector(`#${id}`)) {
         const styles = Object.entries(LOADER_STYLES).map(
@@ -75,7 +75,7 @@ export class NgxImageFallbackDirective implements OnInit {
             .join(separator[1])
             }}`
         ).join(' ')
-          + `.${LOADER_CSS_CLASSNAME}::after{border-top:2px solid ${this.imageFallbackStyles?.loaderColor || LOADER_COLOR}}`;
+          + `.${LOADER_CSS_CLASSNAME}::after{border-top:2px solid ${this.ngxImageFallbackStyles?.loaderColor || LOADER_COLOR}}`;
         const style = this.renderer2.createElement('style');
         const styleValues = this.renderer2.createText(styles);
         this.renderer2.setAttribute(style, 'id', id);
@@ -93,7 +93,7 @@ export class NgxImageFallbackDirective implements OnInit {
     // If source is null/undefined/<blank>
     if (['null', '', 'undefined'].includes(sanitaizedSource)) {
       // On error show fallback add a class for user to decide on the host
-      this.showFallback(this.imageFallback || DEFAULT_FALLBACK);
+      this.showFallback(this.ngxImageFallback || DEFAULT_FALLBACK);
       this.updateCssClass(DIR_ERROR_CSS_CLASSNAME, true);
     } else {
       //Simulate image load in background
@@ -102,7 +102,7 @@ export class NgxImageFallbackDirective implements OnInit {
 
       // On error show fallback add a class for user to decide on the host
       imageConnection.onerror = () => {
-        this.showFallback(this.imageFallback || DEFAULT_FALLBACK);
+        this.showFallback(this.ngxImageFallback || DEFAULT_FALLBACK);
         this.updateCssClass(DIR_ERROR_CSS_CLASSNAME, true);
       };
 
@@ -158,7 +158,7 @@ export class NgxImageFallbackDirective implements OnInit {
         this.renderer2.removeStyle(el, 'content');
       }
     }
-    this.updateCssClass(this.imageFallbackStyles?.loaderClass || LOADER_CSS_CLASSNAME, mode);
+    this.updateCssClass(this.ngxImageFallbackStyles?.loaderClass || LOADER_CSS_CLASSNAME, mode);
   }
 
 }
