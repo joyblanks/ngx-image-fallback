@@ -43,8 +43,8 @@ class NgxImageFallbackDirective {
     constructor(element, renderer2) {
         this.element = element;
         this.renderer2 = renderer2;
-        this.imageFallback = DEFAULT_FALLBACK;
-        this.imageFallbackStyles = { loaderClass: LOADER_CSS_CLASSNAME, loaderColor: LOADER_COLOR };
+        this.ngxImageFallback = DEFAULT_FALLBACK;
+        this.ngxImageFallbackStyles = { loaderClass: LOADER_CSS_CLASSNAME, loaderColor: LOADER_COLOR };
         this.isBackgroundImage = true;
     }
     /**
@@ -53,7 +53,7 @@ class NgxImageFallbackDirective {
     ngOnInit() {
         var _a, _b, _c, _d, _e;
         // inject native loader class class if not specified by user
-        if (!((_a = this.imageFallbackStyles) === null || _a === void 0 ? void 0 : _a.loaderClass) || this.imageFallbackStyles.loaderClass === LOADER_CSS_CLASSNAME) {
+        if (!((_a = this.ngxImageFallbackStyles) === null || _a === void 0 ? void 0 : _a.loaderClass) || this.ngxImageFallbackStyles.loaderClass === LOADER_CSS_CLASSNAME) {
             const id = LOADER_CSS_CLASSNAME;
             if (!document.querySelector(`#${id}`)) {
                 const styles = Object.entries(LOADER_STYLES).map((_a) => {
@@ -62,7 +62,7 @@ class NgxImageFallbackDirective {
                         .map(([key, val]) => `${key}${separator[0]}${val}`)
                         .join(separator[1])}}`;
                 }).join(' ')
-                    + `.${LOADER_CSS_CLASSNAME}::after{border-top:2px solid ${((_b = this.imageFallbackStyles) === null || _b === void 0 ? void 0 : _b.loaderColor) || LOADER_COLOR}}`;
+                    + `.${LOADER_CSS_CLASSNAME}::after{border-top:2px solid ${((_b = this.ngxImageFallbackStyles) === null || _b === void 0 ? void 0 : _b.loaderColor) || LOADER_COLOR}}`;
                 const style = this.renderer2.createElement('style');
                 const styleValues = this.renderer2.createText(styles);
                 this.renderer2.setAttribute(style, 'id', id);
@@ -78,7 +78,7 @@ class NgxImageFallbackDirective {
         // If source is null/undefined/<blank>
         if (['null', '', 'undefined'].includes(sanitaizedSource)) {
             // On error show fallback add a class for user to decide on the host
-            this.showFallback(this.imageFallback || DEFAULT_FALLBACK);
+            this.showFallback(this.ngxImageFallback || DEFAULT_FALLBACK);
             this.updateCssClass(DIR_ERROR_CSS_CLASSNAME, true);
         }
         else {
@@ -87,7 +87,7 @@ class NgxImageFallbackDirective {
             imageConnection.src = sanitaizedSource;
             // On error show fallback add a class for user to decide on the host
             imageConnection.onerror = () => {
-                this.showFallback(this.imageFallback || DEFAULT_FALLBACK);
+                this.showFallback(this.ngxImageFallback || DEFAULT_FALLBACK);
                 this.updateCssClass(DIR_ERROR_CSS_CLASSNAME, true);
             };
             // on success turn off the loader
@@ -143,19 +143,19 @@ class NgxImageFallbackDirective {
                 this.renderer2.removeStyle(el, 'content');
             }
         }
-        this.updateCssClass(((_a = this.imageFallbackStyles) === null || _a === void 0 ? void 0 : _a.loaderClass) || LOADER_CSS_CLASSNAME, mode);
+        this.updateCssClass(((_a = this.ngxImageFallbackStyles) === null || _a === void 0 ? void 0 : _a.loaderClass) || LOADER_CSS_CLASSNAME, mode);
     }
 }
 NgxImageFallbackDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.13", ngImport: i0, type: NgxImageFallbackDirective, deps: [{ token: i0.ElementRef }, { token: i0.Renderer2 }], target: i0.ɵɵFactoryTarget.Directive });
-NgxImageFallbackDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "12.2.13", type: NgxImageFallbackDirective, selector: "[ngxImageFallback]", inputs: { imageFallback: "imageFallback", imageFallbackStyles: "imageFallbackStyles" }, ngImport: i0 });
+NgxImageFallbackDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "12.2.13", type: NgxImageFallbackDirective, selector: "[ngxImageFallback]", inputs: { ngxImageFallback: "ngxImageFallback", ngxImageFallbackStyles: "ngxImageFallbackStyles" }, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.13", ngImport: i0, type: NgxImageFallbackDirective, decorators: [{
             type: Directive,
             args: [{
                     selector: '[ngxImageFallback]'
                 }]
-        }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: i0.Renderer2 }]; }, propDecorators: { imageFallback: [{
+        }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: i0.Renderer2 }]; }, propDecorators: { ngxImageFallback: [{
                 type: Input
-            }], imageFallbackStyles: [{
+            }], ngxImageFallbackStyles: [{
                 type: Input
             }] } });
 

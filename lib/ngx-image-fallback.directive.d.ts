@@ -11,8 +11,8 @@ interface LoaderStyles {
 export declare class NgxImageFallbackDirective implements OnInit {
     private readonly element;
     private readonly renderer2;
-    imageFallback: string;
-    imageFallbackStyles: LoaderStyles;
+    ngxImageFallback: string;
+    ngxImageFallbackStyles: LoaderStyles;
     private isBackgroundImage;
     constructor(element: ElementRef, renderer2: Renderer2);
     /**
@@ -39,6 +39,6 @@ export declare class NgxImageFallbackDirective implements OnInit {
      */
     toggleLoader(mode: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<NgxImageFallbackDirective, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<NgxImageFallbackDirective, "[ngxImageFallback]", never, { "imageFallback": "imageFallback"; "imageFallbackStyles": "imageFallbackStyles"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<NgxImageFallbackDirective, "[ngxImageFallback]", never, { "ngxImageFallback": "ngxImageFallback"; "ngxImageFallbackStyles": "ngxImageFallbackStyles"; }, {}, never>;
 }
 export {};

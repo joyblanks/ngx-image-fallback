@@ -384,8 +384,8 @@
         function NgxImageFallbackDirective(element, renderer2) {
             this.element = element;
             this.renderer2 = renderer2;
-            this.imageFallback = DEFAULT_FALLBACK;
-            this.imageFallbackStyles = { loaderClass: LOADER_CSS_CLASSNAME, loaderColor: LOADER_COLOR };
+            this.ngxImageFallback = DEFAULT_FALLBACK;
+            this.ngxImageFallbackStyles = { loaderClass: LOADER_CSS_CLASSNAME, loaderColor: LOADER_COLOR };
             this.isBackgroundImage = true;
         }
         /**
@@ -395,7 +395,7 @@
             var _this = this;
             var _a, _b, _c, _d, _e;
             // inject native loader class class if not specified by user
-            if (!((_a = this.imageFallbackStyles) === null || _a === void 0 ? void 0 : _a.loaderClass) || this.imageFallbackStyles.loaderClass === LOADER_CSS_CLASSNAME) {
+            if (!((_a = this.ngxImageFallbackStyles) === null || _a === void 0 ? void 0 : _a.loaderClass) || this.ngxImageFallbackStyles.loaderClass === LOADER_CSS_CLASSNAME) {
                 var id = LOADER_CSS_CLASSNAME;
                 if (!document.querySelector("#" + id)) {
                     var styles = Object.entries(LOADER_STYLES).map(function (_a) {
@@ -407,7 +407,7 @@
                         })
                             .join(separator[1]) + "}";
                     }).join(' ')
-                        + ("." + LOADER_CSS_CLASSNAME + "::after{border-top:2px solid " + (((_b = this.imageFallbackStyles) === null || _b === void 0 ? void 0 : _b.loaderColor) || LOADER_COLOR) + "}");
+                        + ("." + LOADER_CSS_CLASSNAME + "::after{border-top:2px solid " + (((_b = this.ngxImageFallbackStyles) === null || _b === void 0 ? void 0 : _b.loaderColor) || LOADER_COLOR) + "}");
                     var style = this.renderer2.createElement('style');
                     var styleValues = this.renderer2.createText(styles);
                     this.renderer2.setAttribute(style, 'id', id);
@@ -423,7 +423,7 @@
             // If source is null/undefined/<blank>
             if (['null', '', 'undefined'].includes(sanitaizedSource)) {
                 // On error show fallback add a class for user to decide on the host
-                this.showFallback(this.imageFallback || DEFAULT_FALLBACK);
+                this.showFallback(this.ngxImageFallback || DEFAULT_FALLBACK);
                 this.updateCssClass(DIR_ERROR_CSS_CLASSNAME, true);
             }
             else {
@@ -432,7 +432,7 @@
                 imageConnection.src = sanitaizedSource;
                 // On error show fallback add a class for user to decide on the host
                 imageConnection.onerror = function () {
-                    _this.showFallback(_this.imageFallback || DEFAULT_FALLBACK);
+                    _this.showFallback(_this.ngxImageFallback || DEFAULT_FALLBACK);
                     _this.updateCssClass(DIR_ERROR_CSS_CLASSNAME, true);
                 };
                 // on success turn off the loader
@@ -488,20 +488,20 @@
                     this.renderer2.removeStyle(el, 'content');
                 }
             }
-            this.updateCssClass(((_a = this.imageFallbackStyles) === null || _a === void 0 ? void 0 : _a.loaderClass) || LOADER_CSS_CLASSNAME, mode);
+            this.updateCssClass(((_a = this.ngxImageFallbackStyles) === null || _a === void 0 ? void 0 : _a.loaderClass) || LOADER_CSS_CLASSNAME, mode);
         };
         return NgxImageFallbackDirective;
     }());
     NgxImageFallbackDirective.ɵfac = i0__namespace.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "12.2.13", ngImport: i0__namespace, type: NgxImageFallbackDirective, deps: [{ token: i0__namespace.ElementRef }, { token: i0__namespace.Renderer2 }], target: i0__namespace.ɵɵFactoryTarget.Directive });
-    NgxImageFallbackDirective.ɵdir = i0__namespace.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "12.2.13", type: NgxImageFallbackDirective, selector: "[ngxImageFallback]", inputs: { imageFallback: "imageFallback", imageFallbackStyles: "imageFallbackStyles" }, ngImport: i0__namespace });
+    NgxImageFallbackDirective.ɵdir = i0__namespace.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "12.2.13", type: NgxImageFallbackDirective, selector: "[ngxImageFallback]", inputs: { ngxImageFallback: "ngxImageFallback", ngxImageFallbackStyles: "ngxImageFallbackStyles" }, ngImport: i0__namespace });
     i0__namespace.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "12.2.13", ngImport: i0__namespace, type: NgxImageFallbackDirective, decorators: [{
                 type: i0.Directive,
                 args: [{
                         selector: '[ngxImageFallback]'
                     }]
-            }], ctorParameters: function () { return [{ type: i0__namespace.ElementRef }, { type: i0__namespace.Renderer2 }]; }, propDecorators: { imageFallback: [{
+            }], ctorParameters: function () { return [{ type: i0__namespace.ElementRef }, { type: i0__namespace.Renderer2 }]; }, propDecorators: { ngxImageFallback: [{
                     type: i0.Input
-                }], imageFallbackStyles: [{
+                }], ngxImageFallbackStyles: [{
                     type: i0.Input
                 }] } });
 
