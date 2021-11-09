@@ -1,0 +1,59 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "baseBranch": "develop",
+  "packageRules": [
+    {
+      "packagePatterns": [
+        "ngx-image-fallback"
+      ],
+      "rangeStrategy": "replace"
+    },
+    {
+      "packagePatterns": [
+        "ngx-image-fallback"
+      ],
+      "depTypeList": [
+        "devDependencies"
+      ],
+      "rangeStrategy": "pin"
+    },
+    {
+      "packagePatterns": [
+        "ngx-image-fallback"
+      ],
+      "depTypeList": [
+        "peerDependencies"
+      ],
+      "rangeStrategy": "widen"
+    },
+    {
+      "packagePatterns": [
+        "ngx-image-fallback"
+      ],
+      "rangeStrategy": "replace",
+      "semanticCommitType": "chore"
+    },
+    {
+      "packagePatterns": [
+        "ngx-image-fallback"
+      ],
+      "depTypeList": [
+        "devDependencies"
+      ],
+      "rangeStrategy": "pin",
+      "semanticCommitType": "chore"
+    },
+    {
+      "packagePatterns": [
+        "ngx-image-fallback"
+      ],
+      "depTypeList": [
+        "peerDependencies"
+      ],
+      "rangeStrategy": "widen",
+      "semanticCommitType": "chore"
+    }
+  ]
+}
