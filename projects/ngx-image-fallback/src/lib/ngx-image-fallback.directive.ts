@@ -54,7 +54,7 @@ export class NgxImageFallbackDirective implements OnInit {
   @Input()
   imageFallbackStyles: LoaderStyles = { loaderClass: LOADER_CSS_CLASSNAME, loaderColor: LOADER_COLOR };
 
-  private isBackgroundImage: boolean = true;
+  private isBackgroundImage = true;
 
   constructor(
     private readonly element: ElementRef,

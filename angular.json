@@ -31,9 +31,21 @@
             "tsConfig": "projects/ngx-image-fallback/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-image-fallback/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ngx-image-fallback/**/*.ts",
+              "projects/ngx-image-fallback/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "ngx-image-fallback"
+  "defaultProject": "ngx-image-fallback",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

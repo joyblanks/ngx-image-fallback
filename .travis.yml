@@ -2,6 +2,8 @@ dist: trusty
 sudo: false
 language: node_js
 node_js: node
+addons:
+  chrome: stable
 
 install:
 - npm ci
@@ -10,6 +12,7 @@ cache:
   - $HOME/.npm
 script:
 - npm run lint
+- npm run test
 - npm run build
 
 deploy:
@@ -17,9 +20,9 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   keep-history: true
-  local-dir: dist/image-fallback
+  local-dir: dist/ngx-image-fallback
   on:
-    branch: master
+    branch: main
 
 git:
   depth: 3

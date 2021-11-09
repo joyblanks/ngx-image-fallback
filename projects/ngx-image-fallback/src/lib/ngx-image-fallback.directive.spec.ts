@@ -15,7 +15,7 @@ const VALID_IMAGE = [
 ].join('');
 
 @Component({
-  selector: 'test-host',
+  selector: 'ngx-test-host',
   template: `
     <img ngxImageFallback [src]="invalidImage" />
     <div ngxImageFallback [style.bakground-image]="invalidBackgroundImage"></div>
