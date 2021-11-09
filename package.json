@@ -1,0 +1,18 @@
+{
+  "name": "ngx-image-fallback",
+  "version": "0.0.0-semantically-released",
+  "peerDependencies": {
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "main": "bundles/ngx-image-fallback.umd.js",
+  "module": "fesm2015/ngx-image-fallback.js",
+  "es2015": "fesm2015/ngx-image-fallback.js",
+  "esm2015": "esm2015/ngx-image-fallback.js",
+  "fesm2015": "fesm2015/ngx-image-fallback.js",
+  "typings": "ngx-image-fallback.d.ts",
+  "sideEffects": false
+}

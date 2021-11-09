@@ -1,0 +1,6 @@
+/*
+ * Public API Surface of ngx-image-fallback
+ */
+export * from './lib/ngx-image-fallback.directive';
+export * from './lib/ngx-image-fallback.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3Byb2plY3RzL25neC1pbWFnZS1mYWxsYmFjay9zcmMvcHVibGljLWFwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7R0FFRztBQUVILGNBQWMsb0NBQW9DLENBQUM7QUFDbkQsY0FBYyxpQ0FBaUMsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qXG4gKiBQdWJsaWMgQVBJIFN1cmZhY2Ugb2Ygbmd4LWltYWdlLWZhbGxiYWNrXG4gKi9cblxuZXhwb3J0ICogZnJvbSAnLi9saWIvbmd4LWltYWdlLWZhbGxiYWNrLmRpcmVjdGl2ZSc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9uZ3gtaW1hZ2UtZmFsbGJhY2subW9kdWxlJztcbiJdfQ==
