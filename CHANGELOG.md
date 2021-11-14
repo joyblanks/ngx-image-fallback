@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/joyblanks/ngx-image-fallback/compare/v1.0.1...v1.0.2) (2021-11-14)
+
+
+### Bug Fixes
+
+* **package:** peer dependencies >=10 ([a3fafd1](https://github.com/joyblanks/ngx-image-fallback/commit/a3fafd1ce7608ab20564f3384383983aa6647e60))
+
 ## [1.0.1](https://github.com/joyblanks/ngx-image-fallback/compare/v1.0.0...v1.0.1) (2021-11-09)
 
 
