@@ -1,9 +1,9 @@
 {
   "name": "ngx-image-fallback",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "peerDependencies": {
-    "@angular/common": "^12.2.0",
-    "@angular/core": "^12.2.0"
+    "@angular/common": ">=10.0.0",
+    "@angular/core": ">=10.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
@@ -22,6 +22,14 @@
     "email": "joy.blanks@hotmail.com",
     "url": "https://github.com/joyblanks"
   },
+  "keywords": [
+    "angular",
+    "image",
+    "fallback",
+    "directive",
+    "default"
+  ],
+  "license": "MIT",
   "main": "bundles/ngx-image-fallback.umd.js",
   "module": "fesm2015/ngx-image-fallback.js",
   "es2015": "fesm2015/ngx-image-fallback.js",
