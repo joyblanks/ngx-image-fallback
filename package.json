@@ -69,6 +69,14 @@
     "email": "joy.blanks@hotmail.com",
     "url": "https://github.com/joyblanks"
   },
+  "keywords": [
+    "angular",
+    "image",
+    "fallback",
+    "directive",
+    "default"
+  ],
+  "license": "MIT",
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
