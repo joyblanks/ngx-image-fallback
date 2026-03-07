@@ -1,4 +1,6 @@
-# Publish to npm on push to main when there are version-worthy commits
+# Publish to npm on push to main when there are version-worthy commits.
+# Requires repo secret NPM_TOKEN (npm Automation token from https://www.npmjs.com/settings/~/tokens).
+# If you use npm 2FA, set it to "Authorization only" so the token can publish.
 name: Release
 
 on:
@@ -11,10 +13,23 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Check NPM_TOKEN
+        run: |
+          if [ -z "$NPM_TOKEN" ]; then
+            echo "::error::NPM_TOKEN is not set. Add it in GitHub: Settings → Secrets and variables → Actions → New repository secret."
+            echo "Create a token at https://www.npmjs.com/settings/~/tokens (type: Automation, or Classic with 'Automation' scope)."
+            exit 1
+          fi
+          echo "NPM_TOKEN is set (length ${#NPM_TOKEN})"
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -36,9 +51,4 @@ jobs:
         run: npm run build
 
       - name: Release
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
-        # NPM_TOKEN: create at https://www.npmjs.com/settings/~yourusername/tokens
-        # Add as repo secret NPM_TOKEN in GitHub Settings → Secrets and variables → Actions
