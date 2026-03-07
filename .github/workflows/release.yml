@@ -29,7 +29,10 @@ jobs:
             echo "Create a token at https://www.npmjs.com/settings/~/tokens (type: Automation, or Classic with 'Automation' scope)."
             exit 1
           fi
-          echo "NPM_TOKEN is set (length ${#NPM_TOKEN})"
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+          npm whoami --registry https://registry.npmjs.org || (echo "::error::NPM_TOKEN is invalid or expired." && exit 1)
+          rm .npmrc
+          echo "NPM_TOKEN is valid"
 
       - name: Setup Node
         uses: actions/setup-node@v4
