@@ -1,3 +1,10 @@
+## [4.1.1](https://github.com/joyblanks/ngx-image-fallback/compare/v4.1.0...v4.1.1) (2026-03-07)
+
+
+### Bug Fixes
+
+* peer dependencies resolution ([0d43a7e](https://github.com/joyblanks/ngx-image-fallback/commit/0d43a7e5b51bdb1ffd9fff9cc9c545f6723bd3b3))
+
 # [4.1.0](https://github.com/joyblanks/ngx-image-fallback/compare/v4.0.0...v4.1.0) (2026-03-07)
 
 
