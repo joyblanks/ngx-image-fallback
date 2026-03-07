@@ -9,6 +9,15 @@
 
 
 
+## Supported versions
+
+| Package | Angular   | Install |
+|---------|-----------|--------|
+| **1.x** | 11–15     | `npm i ngx-image-fallback@^1` |
+| **2.x** | 16–18     | `npm i ngx-image-fallback@^2` |
+
+Use **2.x** for Angular 16–18 (standalone directive, `inject()`, NgModule still supported). Use **1.x** for Angular 11–15.
+
 ## Image fallback directive for img tag and background images on Angular
 ---
 
@@ -16,10 +25,14 @@
 
 ## Installation
 ```sh
-npm i ngx-image-fallback -S
+# Angular 16–18
+npm i ngx-image-fallback@^2 -S
+
+# Angular 11–15
+npm i ngx-image-fallback@^1 -S
 ```
 
-### SystemJS
+### SystemJS (1.x)
 In your ```system.config.js``` add to **map** and **packages**
 
 ```js
@@ -34,25 +47,35 @@ var packages = {
 ```
 
 ## Usage
-> Import it in your module
+
+### Standalone (2.x, Angular 14+)
+
+```ts
+// *.component.ts
+import { Component } from '@angular/core';
+import { NgxImageFallbackDirective } from 'ngx-image-fallback';
+
+@Component({
+  standalone: true,
+  imports: [NgxImageFallbackDirective],
+  template: '<img [src]="image" ngxImageFallback [ngxImageFallback]="fallback" />',
+})
+export class MyComponent {
+  image = 'https://example.com/photo.jpg';
+  fallback = '/assets/placeholder.png';
+}
+```
+
+### NgModule (1.x and 2.x)
 
 ```ts
 // *.module.ts
-
 import { NgModule } from '@angular/core';
-import { NgxImageFallbackModule } from 'ngx-image-fallback'; // 👈 Import module from node_modules
-import { AppComponent } from './app.component';
+import { NgxImageFallbackModule } from 'ngx-image-fallback';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ...
-  ],
-  imports: [
-    NgxImageFallbackModule, // 👈 Add to your imports in your module declaration
-    ...
-  ],
-  providers: [],
+  declarations: [AppComponent],
+  imports: [NgxImageFallbackModule, ...],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

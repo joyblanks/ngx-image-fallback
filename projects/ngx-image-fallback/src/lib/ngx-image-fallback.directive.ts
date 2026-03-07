@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, Input, OnInit, Renderer2 } from '@angular/core';
 
 const LOADER_COLOR = '#abcdef'; // loader color
 const LOADER_CSS_CLASSNAME = 'image-fallback-loader'; // add this class while loading or class specified by user
@@ -34,17 +34,19 @@ const DEFAULT_FALLBACK = [
   'CThM0UWAi97RvM1o6n2pfYST7+MtAGdv8AG00u04bl26XKS+zRAmIZ+WOy0z7NeZpPtWnxLpoAAf/Z',
 ].join('');
 
-interface LoaderStyles {
+export interface LoaderStyles {
   loaderClass?: string;
   loaderColor?: string;
 }
 
 /**
- * Image fallback directive
+ * Image fallback directive (standalone).
+ * Use in templates: add to component/directive `imports`, or import `NgxImageFallbackModule`.
  * @category Shared
  */
 @Directive({
-  selector: '[ngxImageFallback]'
+  selector: '[ngxImageFallback]',
+  standalone: true,
 })
 export class NgxImageFallbackDirective implements OnInit {
 
@@ -56,16 +58,14 @@ export class NgxImageFallbackDirective implements OnInit {
 
   private isBackgroundImage = true;
 
-  constructor(
-    private readonly element: ElementRef,
-    private readonly renderer2: Renderer2
-  ) { }
+  private readonly element = inject(ElementRef<HTMLElement>);
+  private readonly renderer2 = inject(Renderer2);
 
   /**
    * Angular lifecycle init
    */
   ngOnInit(): void {
-    // inject native loader class class if not specified by user
+    // inject native loader class if not specified by user
     if (!this.ngxImageFallbackStyles?.loaderClass || this.ngxImageFallbackStyles.loaderClass === LOADER_CSS_CLASSNAME) {
       const id = LOADER_CSS_CLASSNAME;
       if (!document.querySelector(`#${id}`)) {
@@ -84,43 +84,32 @@ export class NgxImageFallbackDirective implements OnInit {
       }
     }
 
-    // extract image from host element
-    const source: string = this.element.nativeElement?.style?.backgroundImage || this.element.nativeElement?.src || '';
-    this.isBackgroundImage = BKG_REGEX.test(source) && this.element.nativeElement.nodeName.toLowerCase() !== 'img';
-    const sanitaizedSource = this.isBackgroundImage ? source.slice(5, source.length - 2) : source;
-    this.toggleLoader(true); // turn on loader
+    const el = this.element.nativeElement;
+    const source: string = el?.style?.backgroundImage || (el as HTMLImageElement)?.src || '';
+    this.isBackgroundImage = BKG_REGEX.test(source) && el.nodeName.toLowerCase() !== 'img';
+    const sanitizedSource = this.isBackgroundImage ? source.slice(5, source.length - 2) : source;
+    this.toggleLoader(true);
 
-    // If source is null/undefined/<blank>
-    if (['null', '', 'undefined'].includes(sanitaizedSource)) {
-      // On error show fallback add a class for user to decide on the host
+    if (['null', '', 'undefined'].includes(sanitizedSource)) {
       this.showFallback(this.ngxImageFallback || DEFAULT_FALLBACK);
       this.updateCssClass(DIR_ERROR_CSS_CLASSNAME, true);
     } else {
-      //Simulate image load in background
       const imageConnection = new Image();
-      imageConnection.src = sanitaizedSource;
+      imageConnection.src = sanitizedSource;
 
-      // On error show fallback add a class for user to decide on the host
       imageConnection.onerror = () => {
         this.showFallback(this.ngxImageFallback || DEFAULT_FALLBACK);
         this.updateCssClass(DIR_ERROR_CSS_CLASSNAME, true);
       };
 
-      // on success turn off the loader
       imageConnection.onload = () => {
         this.toggleLoader(false);
       };
     }
   }
 
-  /**
-   * Add fallback image
-   * 
-   * @param fallbackImage fallback image url
-   */
   showFallback(fallbackImage: string): void {
     if (this.isBackgroundImage) {
-      // Welcome PR for multiple backgrounds
       this.renderer2.setStyle(this.element.nativeElement, 'background-image', `url('${fallbackImage}')`);
     } else {
       this.renderer2.setAttribute(this.element.nativeElement, 'src', fallbackImage);
@@ -128,12 +117,6 @@ export class NgxImageFallbackDirective implements OnInit {
     this.toggleLoader(false);
   }
 
-  /**
-   * Add or remove the given classname to host
-   * 
-   * @param klass css classname to add or remove
-   * @param mode true to add false to remove
-   */
   updateCssClass(klass: string, mode: boolean): void {
     const el = this.element.nativeElement;
     if (mode) {
@@ -143,14 +126,8 @@ export class NgxImageFallbackDirective implements OnInit {
     }
   }
 
-  /**
-   * Add/Remove loader
-   * 
-   * @param mode true to add false to remove
-   */
   toggleLoader(mode: boolean): void {
     const el = this.element.nativeElement;
-    // img pseudo element hack
     if (!this.isBackgroundImage) {
       if (mode) {
         this.renderer2.setStyle(el, 'content', '" "');
@@ -160,5 +137,4 @@ export class NgxImageFallbackDirective implements OnInit {
     }
     this.updateCssClass(this.ngxImageFallbackStyles?.loaderClass || LOADER_CSS_CLASSNAME, mode);
   }
-
 }

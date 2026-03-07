@@ -27,6 +27,7 @@ const VALID_IMAGE = [
 class TestHostComponent {
   invalidImage: string = 'http://someinvalidimage.com/noimg.jpg';
   invalidBackgroundImage: string = 'url("http://someinvalidimage.com/noimg.jpg")';
+  VALID_IMAGE = VALID_IMAGE;
 }
 
 describe('NgxImageFallbackDirective', () => {
@@ -35,7 +36,8 @@ describe('NgxImageFallbackDirective', () => {
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      declarations: [TestHostComponent, NgxImageFallbackDirective],
+      imports: [NgxImageFallbackDirective],
+      declarations: [TestHostComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .createComponent(TestHostComponent);
