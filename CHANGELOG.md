@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/joyblanks/ngx-image-fallback/compare/v1.0.2...v2.0.0) (2026-03-07)
+
+
+### chore
+
+* release ([a5435dc](https://github.com/joyblanks/ngx-image-fallback/commit/a5435dc718765ff92f3e2fcfed7750d54e9e95c6))
+
+
+### BREAKING CHANGES
+
+* release
+
 ## [1.0.2](https://github.com/joyblanks/ngx-image-fallback/compare/v1.0.1...v1.0.2) (2021-11-14)
 
 
