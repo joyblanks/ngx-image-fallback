@@ -1,3 +1,10 @@
+# [4.1.0](https://github.com/joyblanks/ngx-image-fallback/compare/v4.0.0...v4.1.0) (2026-03-07)
+
+
+### Features
+
+* add array of fallbacks ([82519e0](https://github.com/joyblanks/ngx-image-fallback/commit/82519e09659e7f61c3709c9b48da4bbf1005dd4a))
+
 # [4.0.0](https://github.com/joyblanks/ngx-image-fallback/compare/v3.0.0...v4.0.0) (2026-03-07)
 
 
