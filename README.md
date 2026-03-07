@@ -77,6 +77,19 @@ export class MyComponent {
 }
 ```
 
+**Fallback as an array (4.x):** You can pass multiple URLs; they are tried in order. If none load, the built-in data fallback image is shown.
+
+```ts
+// Try several fallbacks, then show built-in placeholder
+fallback = ['/assets/backup1.png', '/assets/backup2.png', '/assets/placeholder.png'];
+// Or a single string (same as before)
+fallback = '/assets/placeholder.png';
+```
+
+```html
+<img [src]="image" ngxImageFallback [ngxImageFallback]="fallback" />
+```
+
 **4.x** is standalone-only (no NgModule). **3.x** also provides `NgxImageFallbackModule` if you use modules.
 
 ### Optional outputs (4.x only)

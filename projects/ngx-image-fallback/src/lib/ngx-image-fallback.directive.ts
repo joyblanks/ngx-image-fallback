@@ -32,7 +32,8 @@ const LOADER_STYLES = {
   }
 };
 const BKG_REGEX = /^url\(["']+.*["']+\)$/i;
-const DEFAULT_FALLBACK = [
+/** Built-in data URI used when all fallbacks fail. Exported for tests. */
+export const DEFAULT_FALLBACK = [
   'data:image/jpeg;base64,',
   '/9j/4AAQSkZJRgABAQEAYABgAAD/',
   '/gA7Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcgSlBFRyB2ODApLCBxdWFsaXR5ID0gODAK/',
@@ -59,8 +60,8 @@ export interface LoaderStyles {
 })
 export class NgxImageFallbackDirective implements OnInit {
 
-  /** Fallback image URL or data URI when the primary source fails or is empty. */
-  ngxImageFallback = input<string>(DEFAULT_FALLBACK);
+  /** Fallback image URL(s) when the primary source fails or is empty. Can be a single string or an array tried in order; if all fail, the built-in data fallback is shown. */
+  ngxImageFallback = input<string | string[]>(DEFAULT_FALLBACK);
 
   /** Loader appearance (CSS class and color). */
   ngxImageFallbackStyles = input<LoaderStyles>({
@@ -107,19 +108,13 @@ export class NgxImageFallbackDirective implements OnInit {
     this.toggleLoader(true);
 
     if (['null', '', 'undefined'].includes(sanitizedSource)) {
-      this.showFallback(this.ngxImageFallback() || DEFAULT_FALLBACK);
-      this.updateCssClass(DIR_ERROR_CSS_CLASSNAME, true);
-      this.fallbackUsed.emit();
-      this.cdr.markForCheck();
+      this.tryFallbackList(this.getFallbackList(), 0);
     } else {
       const imageConnection = new Image();
       imageConnection.src = sanitizedSource;
 
       imageConnection.onerror = () => {
-        this.showFallback(this.ngxImageFallback() || DEFAULT_FALLBACK);
-        this.updateCssClass(DIR_ERROR_CSS_CLASSNAME, true);
-        this.fallbackUsed.emit();
-        this.cdr.markForCheck();
+        this.tryFallbackList(this.getFallbackList(), 0);
       };
 
       imageConnection.onload = () => {
@@ -128,6 +123,43 @@ export class NgxImageFallbackDirective implements OnInit {
         this.cdr.markForCheck();
       };
     }
+  }
+
+  /** Normalize fallback input to a non-empty array of URLs (strings only). */
+  private getFallbackList(): string[] {
+    const value = this.ngxImageFallback();
+    if (value == null || value === '') {
+      return [];
+    }
+    const list = Array.isArray(value) ? value.filter((u): u is string => typeof u === 'string' && u !== '') : [value];
+    return list;
+  }
+
+  /** Try fallback URLs in order; if all fail, show the built-in default data fallback. */
+  private tryFallbackList(list: string[], index: number): void {
+    if (index >= list.length) {
+      this.applyFallbackAndEmit(DEFAULT_FALLBACK);
+      return;
+    }
+    const url = list[index];
+    const img = new Image();
+    img.onload = () => {
+      this.showFallback(url);
+      this.updateCssClass(DIR_ERROR_CSS_CLASSNAME, true);
+      this.fallbackUsed.emit();
+      this.cdr.markForCheck();
+    };
+    img.onerror = () => {
+      this.tryFallbackList(list, index + 1);
+    };
+    img.src = url;
+  }
+
+  private applyFallbackAndEmit(fallbackImage: string): void {
+    this.showFallback(fallbackImage);
+    this.updateCssClass(DIR_ERROR_CSS_CLASSNAME, true);
+    this.fallbackUsed.emit();
+    this.cdr.markForCheck();
   }
 
   private showFallback(fallbackImage: string): void {
