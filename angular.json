@@ -44,7 +44,6 @@
       }
     }
   },
-  "defaultProject": "ngx-image-fallback",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }

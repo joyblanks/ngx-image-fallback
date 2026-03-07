@@ -2,8 +2,8 @@
   "name": "ngx-image-fallback",
   "version": "0.0.0-semantically-released",
   "peerDependencies": {
-    "@angular/common": ">=10.0.0",
-    "@angular/core": ">=10.0.0"
+    "@angular/common": ">=11.0.0 <16.0.0",
+    "@angular/core": ">=11.0.0 <16.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
