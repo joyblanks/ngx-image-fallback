@@ -1,6 +1,6 @@
 # Image Fallback Directive for Angular
 
-[![Build Status](https://travis-ci.com/joyblanks/ngx-image-fallback.svg?branch=main)](https://travis-ci.com/joyblanks/ngx-image-fallback)
+[![CI](https://github.com/joyblanks/ngx-image-fallback/actions/workflows/ci.yml/badge.svg)](https://github.com/joyblanks/ngx-image-fallback/actions/workflows/ci.yml)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
@@ -186,6 +186,17 @@ export class MyComponent {
   [ngxImageFallback]="fallback"
 >&nbsp;</div> <!-- with a background image -->
 ```
+
+---
+
+## Publishing
+
+Releases are automated with [GitHub Actions](.github/workflows/) and [semantic-release](https://github.com/semantic-release/semantic-release):
+
+- **Push to `main`** with [conventional commits](https://www.conventionalcommits.org/) (e.g. `fix:`, `feat:`) runs the release workflow: it builds, then publishes to npm and creates a GitHub release if the commit history warrants a new version.
+- **Manual publish:** `npm run publish:lib` (builds and runs `npm publish` from `dist/ngx-image-fallback`). You must be logged in (`npm login`) and have set **NPM_TOKEN** in the repo if using CI.
+
+**CI setup:** In GitHub → Settings → Secrets and variables → Actions, add **NPM_TOKEN** (create an automation token at [npmjs.com/settings](https://www.npmjs.com/settings) → Access Tokens).
 
 ---
 

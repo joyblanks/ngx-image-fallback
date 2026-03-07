@@ -1,0 +1,44 @@
+# Publish to npm on push to main when there are version-worthy commits
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # - name: Test
+      #   run: npm run test
+
+      - name: Build
+        run: npm run build
+
+      - name: Release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+        # NPM_TOKEN: create at https://www.npmjs.com/settings/~yourusername/tokens
+        # Add as repo secret NPM_TOKEN in GitHub Settings → Secrets and variables → Actions
