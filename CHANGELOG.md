@@ -1,3 +1,15 @@
+# [4.0.0](https://github.com/joyblanks/ngx-image-fallback/compare/v3.0.0...v4.0.0) (2026-03-07)
+
+
+### Bug Fixes
+
+* updates for next version 19 - 21 ([a2ef85f](https://github.com/joyblanks/ngx-image-fallback/commit/a2ef85f4f63e0231baa0fefb28a34b53ede7d5c9))
+
+
+### BREAKING CHANGES
+
+* release
+
 # [3.0.0](https://github.com/joyblanks/ngx-image-fallback/compare/v2.0.0...v3.0.0) (2026-03-07)
 
 
