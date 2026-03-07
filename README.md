@@ -1,6 +1,6 @@
 # Image Fallback Directive for Angular
 
-[![CI](https://github.com/joyblanks/ngx-image-fallback/actions/workflows/ci.yml/badge.svg)](https://github.com/joyblanks/ngx-image-fallback/actions/workflows/ci.yml)
+
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
@@ -11,12 +11,17 @@
 
 ## Supported versions
 
-| Package | Angular   | Install |
-|---------|-----------|--------|
-| **1.x** | 11–15     | `npm i ngx-image-fallback@^1` |
-| **2.x** | 16–18     | `npm i ngx-image-fallback@^2` |
+| Package | Angular | Install                       |
+|---------|---------|-------------------------------|
+| **1.x** | &lt;11  | `npm i ngx-image-fallback@^1` |
+| **2.x** | 11–15   | `npm i ngx-image-fallback@^2` |
+| **3.x** | 16–18   | `npm i ngx-image-fallback@^3` |
+| **4.x** | 19+     | `npm i ngx-image-fallback@^4` |
 
-Use **2.x** for Angular 16–18 (standalone directive, `inject()`, NgModule still supported). Use **1.x** for Angular 11–15.
+- **4.x** (recommended for new apps): Angular 19+, signal `input()`/`output()`, zoneless-safe, works without zone.js.
+- **3.x**: Standalone + NgModule, `inject()`, `@Input()`.
+- **2.x**: NgModule, Angular 11–15.
+- **1.x**: NgModule only, Angular &lt;11.
 
 ## Image fallback directive for img tag and background images on Angular
 ---
@@ -25,10 +30,16 @@ Use **2.x** for Angular 16–18 (standalone directive, `inject()`, NgModule stil
 
 ## Installation
 ```sh
+# Angular 19+ (recommended)
+npm i ngx-image-fallback@^4 -S
+
 # Angular 16–18
-npm i ngx-image-fallback@^2 -S
+npm i ngx-image-fallback@^3 -S
 
 # Angular 11–15
+npm i ngx-image-fallback@^2 -S
+
+# Angular <11
 npm i ngx-image-fallback@^1 -S
 ```
 
@@ -48,7 +59,7 @@ var packages = {
 
 ## Usage
 
-### Standalone (2.x, Angular 14+)
+### Standalone (3.x, 4.x) — import the directive
 
 ```ts
 // *.component.ts
@@ -66,10 +77,28 @@ export class MyComponent {
 }
 ```
 
-### NgModule (1.x and 2.x)
+**4.x** is standalone-only (no NgModule). **3.x** also provides `NgxImageFallbackModule` if you use modules.
+
+### Optional outputs (4.x only)
+
+4.x emits when fallback is used or the image loads:
+
+```html
+<img
+  [src]="image"
+  ngxImageFallback
+  [ngxImageFallback]="fallback"
+  (fallbackUsed)="onFallback()"
+  (imageLoaded)="onLoaded()"
+/>
+```
+
+### NgModule (1.x, 2.x, 3.x only)
+
+For Angular &lt;11 through 18 you can use the module:
 
 ```ts
-// *.module.ts
+// *.module.ts (1.x, 2.x or 3.x)
 import { NgModule } from '@angular/core';
 import { NgxImageFallbackModule } from 'ngx-image-fallback';
 
@@ -212,11 +241,24 @@ export class MyComponent {
 
 ---
 
+## Development
+
+```sh
+npm ci
+npm run lint
+npm run test
+npm run build
+```
+
+Tests use [Vitest](https://vitest.dev/). Node version is defined in [.nvmrc](.nvmrc).
+
+---
+
 ## Publishing
 
 Releases are automated with [GitHub Actions](.github/workflows/) and [semantic-release](https://github.com/semantic-release/semantic-release):
 
-- **Push to `main`** with [conventional commits](https://www.conventionalcommits.org/) (e.g. `fix:`, `feat:`) runs the release workflow: it builds, then publishes to npm and creates a GitHub release if the commit history warrants a new version.
+- **Push to `main`** with [conventional commits](https://www.conventionalcommits.org/) (e.g. `fix:`, `feat:`) runs the release workflow: lint → test → build, then publishes to npm and creates a GitHub release if the commit history warrants a new version.
 - **Manual publish:** `npm run publish:lib` (builds and runs `npm publish` from `dist/ngx-image-fallback`). You must be logged in (`npm login`) and have set **NPM_TOKEN** in the repo if using CI.
 
 **CI setup:** In GitHub → Settings → Secrets and variables → Actions, add **NPM_TOKEN** (create an automation token at [npmjs.com/settings](https://www.npmjs.com/settings) → Access Tokens).
@@ -225,8 +267,8 @@ Releases are automated with [GitHub Actions](.github/workflows/) and [semantic-r
 
 > TODO:
   - Multiple background images
-  - Event emitter to loaded original or fallback
   - Add a demo
+  - (4.x has `fallbackUsed` and `imageLoaded` outputs for fallback/load events)
 
 ## License
 

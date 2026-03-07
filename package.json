@@ -7,52 +7,48 @@
     "commit": "git-cz",
     "build": "ng build ngx-image-fallback --configuration production",
     "lint": "ng lint ngx-image-fallback",
-    "test": "ng test ngx-image-fallback --no-watch --no-progress --browsers=ChromeHeadlessCI",
+    "test": "ng test ngx-image-fallback --no-watch",
     "semantic-release": "semantic-release",
     "publish:lib": "npm run build && npm publish --prefix dist/ngx-image-fallback"
   },
   "dependencies": {
-    "@angular/animations": "~18.2.0",
-    "@angular/common": "~18.2.0",
-    "@angular/compiler": "~18.2.0",
-    "@angular/core": "~18.2.0",
-    "@angular/forms": "~18.2.0",
-    "@angular/platform-browser": "~18.2.0",
-    "@angular/platform-browser-dynamic": "~18.2.0",
-    "@angular/router": "~18.2.0",
+    "@angular/animations": "~21.2.0",
+    "@angular/common": "~21.2.0",
+    "@angular/compiler": "~21.2.0",
+    "@angular/core": "~21.2.0",
+    "@angular/forms": "~21.2.0",
+    "@angular/platform-browser": "~21.2.0",
+    "@angular/platform-browser-dynamic": "~21.2.0",
+    "@angular/router": "~21.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.10"
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~18.2.0",
-    "@angular-eslint/builder": "18.4.0",
-    "@angular-eslint/eslint-plugin": "18.4.0",
-    "@angular-eslint/eslint-plugin-template": "18.4.0",
-    "@angular-eslint/schematics": "18.4.0",
-    "@angular-eslint/template-parser": "18.4.0",
-    "@angular/cli": "~18.2.0",
-    "@angular/compiler-cli": "~18.2.0",
+    "@angular-devkit/build-angular": "~21.2.0",
+    "@angular-eslint/builder": "~21.3.0",
+    "@angular-eslint/eslint-plugin": "~21.3.0",
+    "@angular-eslint/eslint-plugin-template": "~21.3.0",
+    "@angular-eslint/schematics": "~21.3.0",
+    "@angular-eslint/template-parser": "~21.3.0",
+    "@angular/cli": "~21.2.0",
+    "@angular/compiler-cli": "~21.2.0",
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
     "conventional-changelog-conventionalcommits": "^7.0.2",
-    "@types/jasmine": "~5.1.0",
-    "@types/node": "^20.0.0",
+    "@angular/build": "~21.2.0",
+    "@types/node": "^22.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "eslint": "^9.0.0",
     "husky": "^9.0.0",
-    "jasmine-core": "~5.4.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
-    "ng-packagr": "~18.2.0",
+    "jsdom": "~25.0.0",
+    "ng-packagr": "~21.2.0",
+    "vitest": "~4.0.0",
     "semantic-release": "^24.0.0",
-    "typescript": "~5.4.0"
+    "typescript": "~5.9.0"
   },
   "description": "Image fallback directive for img tag and background images on Angular",
   "homepage": "https://github.com/joyblanks/ngx-image-fallback",
@@ -102,9 +98,18 @@
         {
           "preset": "conventionalcommits",
           "releaseRules": [
-            { "breaking": true, "release": "major" },
-            { "type": "feat", "release": "minor" },
-            { "type": "fix", "release": "patch" }
+            {
+              "breaking": true,
+              "release": "major"
+            },
+            {
+              "type": "feat",
+              "release": "minor"
+            },
+            {
+              "type": "fix",
+              "release": "patch"
+            }
           ]
         }
       ],

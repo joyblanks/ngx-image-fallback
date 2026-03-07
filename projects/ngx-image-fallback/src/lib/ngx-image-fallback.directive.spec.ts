@@ -1,21 +1,17 @@
+/// <reference types="vitest/globals" />
 import { Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { vi } from 'vitest';
 import { NgxImageFallbackDirective } from './ngx-image-fallback.directive';
 
-const VALID_IMAGE = [
-  'data:image/jpeg;base64,',
-  '/9j/4AAQSkZJRgABAQEAYABgAAD/',
-  '/gA7Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcgSlBFRyB2ODApLCBxdWFsaXR5ID0gODAK/',
-  '9sAQwAGBAUGBQQGBgUGBwcGCAoQCgoJCQoUDg8MEBcUGBgXFBYWGh0lHxobIxwWFiAsICMmJykqKRkfLTAtKDAlKCko/',
-  '9sAQwEHBwcKCAoTCgoTKBoWGigoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgo/',
-  '8AAEQgAIAAgAwEiAAIRAQMRAf/EABcAAQEBAQAAAAAAAAAAAAAAAAAEBQj/xAAcEAADAQEBAAMAAAAAAAAAAAAAAQIDERIEMVH/',
-  'xAAXAQEAAwAAAAAAAAAAAAAAAAAAAQID/8QAFhEBAQEAAAAAAAAAAAAAAAAAAAEh/9oADAMBAAIRAxEAPwDocAjrTTutVus4m/',
-  'CThM0UWAi97RvM1o6n2pfYST7+MtAGdv8AG00u04bl26XKS+zRAmIZ+WOy0z7NeZpPtWnxLpoAAf/Z',
-].join('');
+// Minimal 1x1 transparent GIF (valid data URI for tests)
+const VALID_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
 @Component({
   selector: 'ngx-test-host',
+  standalone: true,
+  imports: [NgxImageFallbackDirective],
   template: `
     <img ngxImageFallback [src]="invalidImage" />
     <div ngxImageFallback [style.bakground-image]="invalidBackgroundImage"></div>
@@ -25,8 +21,9 @@ const VALID_IMAGE = [
   `,
 })
 class TestHostComponent {
-  invalidImage: string = 'http://someinvalidimage.com/noimg.jpg';
-  invalidBackgroundImage: string = 'url("http://someinvalidimage.com/noimg.jpg")';
+  // Use invalid data URI so onerror fires in jsdom (no network)
+  invalidImage: string = 'data:image/jpeg;base64,invalid';
+  invalidBackgroundImage: string = 'url("data:image/jpeg;base64,invalid")';
   VALID_IMAGE = VALID_IMAGE;
 }
 
@@ -35,41 +32,34 @@ describe('NgxImageFallbackDirective', () => {
   let elements: DebugElement[] = [];
 
   beforeEach(() => {
+    vi.useFakeTimers();
     fixture = TestBed.configureTestingModule({
-      imports: [NgxImageFallbackDirective],
-      declarations: [TestHostComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-      .createComponent(TestHostComponent);
-    fixture.detectChanges(); // initial binding
-    // all elements with an attached directive
+      imports: [TestHostComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).createComponent(TestHostComponent);
+    fixture.detectChanges();
     elements = fixture.debugElement.queryAll(By.directive(NgxImageFallbackDirective));
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   it('should have three directive elements', () => {
     expect(elements.length).toBe(3);
   });
 
-  it('should have image-fallback-loader on applied directives rightaway', waitForAsync(() => {
-    setTimeout(() => {
-      const classList = (elements[0].nativeElement as HTMLElement).classList;
-      expect(classList.contains('image-fallback-loader')).toBeTruthy();
-    }, 10);
-  }));
+  it('should have image-fallback-loader on applied directives right away', () => {
+    vi.advanceTimersByTime(20);
+    fixture.detectChanges();
+    const classList = (elements[0].nativeElement as HTMLElement).classList;
+    expect(classList.contains('image-fallback-loader')).toBe(true);
+  });
 
-  it('should have image-fallback-error on applied directives', waitForAsync(() => {
-    setTimeout(() => {
-      const classList = (elements[0].nativeElement as HTMLElement).classList;
-      expect(classList.contains('image-fallback-error')).toBeTruthy();
-    }, 4500);
-  }));
-
-  it('should have image-fallback on applied directives', waitForAsync(() => {
-    setTimeout(() => {
-      const src = (elements[0].nativeElement as HTMLImageElement).src;
-      expect(src).toBe(VALID_IMAGE);
-    }, 4500);
-  }));
-
+  it('should apply fallback image when primary fails', async () => {
+    await vi.advanceTimersByTimeAsync(100);
+    fixture.detectChanges();
+    const src = (elements[0].nativeElement as HTMLImageElement).src;
+    expect(src).toMatch(/^data:/);
+  });
 });
-

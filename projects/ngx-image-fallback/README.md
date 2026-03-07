@@ -34,31 +34,25 @@ var packages = {
 ```
 
 ## Usage
-> Import it in your module
+> Add the directive to your component or route `imports` (standalone)
 
 ```ts
-// *.module.ts
+// *.component.ts
+import { Component } from '@angular/core';
+import { NgxImageFallbackDirective } from 'ngx-image-fallback';
 
-import { NgModule } from '@angular/core';
-import { NgxImageFallbackModule } from 'ngx-image-fallback'; // 👈 Import module from node_modules
-import { AppComponent } from './app.component';
-
-@NgModule({
-  declarations: [
-    AppComponent,
-    ...
-  ],
-  imports: [
-    NgxImageFallbackModule, // 👈 Add to your imports in your module declaration
-    ...
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+@Component({
+  standalone: true,
+  imports: [NgxImageFallbackDirective],
+  template: '<img [src]="image" ngxImageFallback [ngxImageFallback]="fallback" />',
 })
-export class AppModule { }
+export class AppComponent {
+  image = 'https://example.com/photo.jpg';
+  fallback = '/assets/fallback.jpg';
+}
 ```
 
-> Basic Usage in component
+> Basic usage
 ```ts
 // *.component.ts
 

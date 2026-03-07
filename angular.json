@@ -10,7 +10,7 @@
       "prefix": "ngx",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "project": "projects/ngx-image-fallback/ng-package.json"
           },
@@ -25,11 +25,10 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "main": "projects/ngx-image-fallback/src/test.ts",
-            "tsConfig": "projects/ngx-image-fallback/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-image-fallback/karma.conf.js"
+            "buildTarget": "ngx-image-fallback:build:development",
+            "tsConfig": "projects/ngx-image-fallback/tsconfig.spec.json"
           }
         },
         "lint": {

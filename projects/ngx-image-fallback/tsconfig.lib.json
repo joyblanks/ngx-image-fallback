@@ -8,13 +8,13 @@
     "declarationMap": true,
     "inlineSources": true,
     "types": [],
+    "skipLibCheck": true,
     "lib": [
       "dom",
       "ES2022"
     ]
   },
   "exclude": [
-    "src/test.ts",
     "**/*.spec.ts"
   ]
 }
